@@ -1,46 +1,21 @@
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
-  Search,
-  Bell,
   Download,
   ArrowUp,
-  ArrowDown,
   DollarSign,
   Users,
   CreditCard,
   Activity,
-  User
 } from "lucide-react";
 
 export default function Home() {
   return (
     <DashboardLayout>
       <div className="flex flex-col h-full">
-        {/* Header */}
-        <header className="border-b">
-          <div className="flex h-16 items-center px-4 gap-4">
-            <h1 className="text-xl font-semibold">Dashboard</h1>
-            <div className="ml-auto flex items-center gap-4">
-              <div className="relative w-64">
-                <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input placeholder="Search..." className="pl-8" />
-              </div>
-              <Button variant="outline" size="icon">
-                <Bell className="h-4 w-4" />
-              </Button>
-              <div className="flex items-center gap-2">
-                <User className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm font-medium">Aaiydh Ahmad</span>
-              </div>
-            </div>
-          </div>
-        </header>
-
         {/* Main Content */}
-        <div className="flex-1 space-y-4 p-8 pt-6">
+        <div className="flex-1 space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-3xl font-bold tracking-tight">Overview</h2>
             <div className="flex items-center gap-2">

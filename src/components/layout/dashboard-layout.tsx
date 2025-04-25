@@ -98,7 +98,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       {/* Mobile Sidebar */}
       <Sheet>
         <SheetTrigger asChild>
-          <Button variant="ghost" size="icon" className="md:hidden">
+          <Button variant="ghost" size="icon" className="md:hidden fixed top-4 left-4 z-50">
             <Menu className="h-5 w-5" />
           </Button>
         </SheetTrigger>
@@ -112,7 +112,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       </Sheet>
 
       {/* Desktop Sidebar */}
-      <aside className="hidden border-r bg-background md:block w-[280px]">
+      <aside className="hidden border-r bg-background md:block w-[280px] flex-shrink-0">
         <SidebarContent 
           pathname={pathname} 
           openGroups={openGroups}
@@ -121,51 +121,53 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1">
-        <div className="flex flex-col h-full">
-          {/* Header */}
-          <header className="border-b">
-            <div className="flex h-16 items-center px-4">
-              <h1 className="text-xl font-semibold">Dashboard</h1>
-              <div className="ml-auto flex items-center gap-4">
-                <div className="relative w-64">
-                  <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input placeholder="Search..." className="pl-8" />
-                </div>
-                <ThemeToggle />
-                <Button variant="outline" size="icon">
-                  <Bell className="h-4 w-4" />
-                </Button>
+      <main className="flex-1 flex flex-col min-h-screen">
+        {/* Header */}
+        <header className="sticky top-0 z-10 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <div className="flex h-[72px] items-center gap-4 px-6">
+            <h1 className="text-lg font-medium text-foreground/90">Dashboard</h1>
+            <div className="ml-auto flex items-center gap-4">
+              <div className="relative w-64">
+                <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input placeholder="Search..." className="pl-8" />
               </div>
+              <ThemeToggle />
+              <Button variant="outline" size="icon">
+                <Bell className="h-4 w-4" />
+              </Button>
             </div>
-          </header>
-
-          {/* Page Content */}
-          <div className="flex-1 p-8">
-            {children}
           </div>
+        </header>
+
+        {/* Page Content */}
+        <div className="flex-1 p-6">
+          {children}
         </div>
+
+        {/* Footer */}
+        <footer className="border-t py-4 px-6">
+          <div className="flex items-center justify-between text-sm text-muted-foreground">
+            <div>
+              <p>Workspace Admin Dashboard v1.0.0</p>
+            </div>
+            <div>
+              <p>&copy; {new Date().getFullYear()} Workspace. All rights reserved.</p>
+            </div>
+          </div>
+        </footer>
       </main>
     </div>
   );
 }
 
-function SidebarContent({ 
-  pathname, 
-  openGroups,
-  toggleGroup
-}: { 
-  pathname: string;
-  openGroups: string[];
-  toggleGroup: (name: string) => void;
-}) {
-  const router = useRouter()
+function SidebarContent({ pathname, openGroups, toggleGroup }: { pathname: string; openGroups: string[]; toggleGroup: (name: string) => void; }) {
+  const router = useRouter();
 
   const handleLogout = () => {
-    Cookies.remove('isAuthenticated')
-    router.push('/login')
-    router.refresh()
-  }
+    Cookies.remove('isAuthenticated');
+    router.push('/login');
+    router.refresh();
+  };
 
   return (
     <div className="flex h-full flex-col">
@@ -205,7 +207,7 @@ function SidebarContent({
                       {item.name}
                     </span>
                     <ChevronDown className={cn(
-                      "h-4 w-4 transition-transform",
+                      "h-4 w-4 transition-transform text-muted-foreground",
                       isOpen && "rotate-180"
                     )} />
                   </Button>
@@ -216,8 +218,8 @@ function SidebarContent({
                           <Button
                             variant="ghost"
                             className={cn(
-                              "w-full justify-start font-normal",
-                              pathname === child.href && "bg-accent/50"
+                              "w-full justify-start font-normal text-muted-foreground",
+                              pathname === child.href && "bg-accent/50 text-foreground"
                             )}
                           >
                             {child.name}
@@ -235,8 +237,8 @@ function SidebarContent({
                 <Button
                   variant="ghost"
                   className={cn(
-                    "w-full justify-start font-normal",
-                    pathname === item.href && "bg-accent/50"
+                    "w-full justify-start font-normal text-muted-foreground",
+                    pathname === item.href && "bg-accent/50 text-foreground"
                   )}
                 >
                   <item.icon className="mr-2 h-4 w-4" />
@@ -252,10 +254,10 @@ function SidebarContent({
       <div className="border-t p-4 space-y-4">
         <div className="flex items-center gap-3 px-2">
           <div className="rounded-full bg-muted p-1">
-            <User2 className="h-6 w-6" />
+            <User2 className="h-6 w-6 text-muted-foreground" />
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-medium">Aaiydh Ahmad</span>
+            <span className="text-sm font-medium text-foreground/90">Aaiydh Ahmad</span>
             <span className="text-xs text-muted-foreground">Administrator</span>
           </div>
         </div>
@@ -263,7 +265,7 @@ function SidebarContent({
           <AlertDialogTrigger asChild>
             <Button
               variant="ghost"
-              className="w-full justify-start text-muted-foreground"
+              className="w-full justify-start text-muted-foreground hover:text-foreground"
             >
               <LogOut className="mr-2 h-4 w-4" />
               Logout
@@ -272,7 +274,7 @@ function SidebarContent({
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Are you sure you want to logout?</AlertDialogTitle>
-              <AlertDialogDescription>
+              <AlertDialogDescription className="text-muted-foreground">
                 You will be redirected to the login page.
               </AlertDialogDescription>
             </AlertDialogHeader>
