@@ -16,6 +16,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Search } from "@/components/search";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -29,12 +30,10 @@ import {
   ChevronRight,
   User2,
   Menu,
-  Search,
   Bell,
   LogOut
 } from "lucide-react";
 import { LucideIcon } from "lucide-react";
-import { Input } from "@/components/ui/input";
 import Cookies from 'js-cookie'
 
 interface DashboardLayoutProps {
@@ -127,10 +126,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           <div className="flex h-[72px] items-center gap-4 px-6">
             <h1 className="text-lg font-medium text-foreground/90">Dashboard</h1>
             <div className="ml-auto flex items-center gap-4">
-              <div className="relative w-64">
-                <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input placeholder="Search..." className="pl-8" />
-              </div>
+              <Search />
               <ThemeToggle />
               <Button variant="outline" size="icon">
                 <Bell className="h-4 w-4" />
